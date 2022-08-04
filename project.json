@@ -4,9 +4,11 @@
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.12.3]",
+    "UiPath.Mail.Activities": "[1.15.2]",
     "UiPath.System.Activities": "[22.4.1]",
     "UiPath.Testing.Activities": "[22.4.3]",
-    "UiPath.UIAutomation.Activities": "[22.4.5]"
+    "UiPath.UIAutomation.Activities": "[22.4.5]",
+    "UiPath.WebAPI.Activities": "[1.11.1]"
   },
   "webServices": [],
   "entitiesStores": [],
@@ -82,6 +84,36 @@
         "testCaseId": "7ebd4df0-a64f-49c9-b729-5c4e8e928ee9",
         "testCaseType": "TestCase",
         "fileName": "Tests\\WorkflowTestCaseTemplate.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "2bc116ee-b502-495d-ac89-0482fc6b505f",
+        "testCaseType": "TestCase",
+        "fileName": "Tests\\TestCase_Read_OutputReportAndMaping.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "db161ae8-c531-4012-bc92-8543482b2e85",
+        "testCaseType": "TestCase",
+        "fileName": "Tests\\TestCase_VerifyIfCatOrDog.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "431d82c3-7eeb-4b83-89a4-7ddff7e2320b",
+        "testCaseType": "TestCase",
+        "fileName": "Tests\\TestCase_DownloadDog.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "bc1760c3-f046-4838-9eb5-6c8226a95341",
+        "testCaseType": "TestCase",
+        "fileName": "Tests\\TestCase_DownloadCat.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "98227099-c11c-4051-b2cd-85678e952b1d",
+        "testCaseType": "TestCase",
+        "fileName": "Tests\\TestCase_SendEmail.xaml"
       }
     ],
     "modernBehavior": false
