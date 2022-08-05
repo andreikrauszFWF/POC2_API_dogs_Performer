@@ -1,16 +1,16 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Read_OutputReportAndMaping" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Update_OutputReport" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
-    <x:Property Name="out_dt_outputReport" Type="OutArgument(sd:DataTable)" />
-    <x:Property Name="out_dt_mailMapings" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_transactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="io_dt_OutputReport" Type="InOutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
   <sap:VirtualizedContainerService.HintSize>1206,817.333333333333</sap:VirtualizedContainerService.HintSize>
-  <sap2010:WorkflowViewState.IdRef>Read_OutputReportAndMaping_1</sap2010:WorkflowViewState.IdRef>
+  <sap2010:WorkflowViewState.IdRef>Update_OutputReport_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="29">
+    <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -32,18 +32,19 @@
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>System.Windows.Markup</x:String>
-      <x:String>System.ComponentModel</x:String>
-      <x:String>System.Runtime.Serialization</x:String>
-      <x:String>System.Xml.Serialization</x:String>
-      <x:String>UiPath.Excel</x:String>
-      <x:String>UiPath.Excel.Activities</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Runtime.InteropServices</x:String>
       <x:String>System.Reflection</x:String>
-    </scg:List>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+    </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="56">
+    <sco:Collection x:TypeArguments="AssemblyReference">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -67,23 +68,24 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Data.Entity</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
-      <AssemblyReference>UiPath.Excel</AssemblyReference>
-      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
-    </scg:List>
+    </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflow to read OutputReport and Maping file and store the info in data tables." DisplayName="Read_the  OutputReport And Maping File" sap:VirtualizedContainerService.HintSize="376,620" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Workflow to update the OutputReport data table, with the name, animal and status of current transaction item." DisplayName="Update OutputReport with item info and status" sap:VirtualizedContainerService.HintSize="376,596.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message to inform start of workflow" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Read_OutputReportAndMaping workflow has started&quot;]" />
-    <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[out_dt_outputReport]" DisplayName="Read OutputReport" sap:VirtualizedContainerService.HintSize="334,86.6666666666667" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="[Path.combine(Environment.GetFolderPath(environment.SpecialFolder.UserProfile),in_config(&quot;OutputReport_path&quot;).ToString,&quot;OutputReport-&quot;+DateTime.Now.ToString(&quot;dd-MM-yyyy&quot;))+&quot;.xlsx&quot;]" />
-    <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[out_dt_mailMapings]" DisplayName="Read Maping file" sap:VirtualizedContainerService.HintSize="334,86.6666666666667" sap2010:WorkflowViewState.IdRef="ReadRange_2" SheetName="Sheet1" WorkbookPath="[Path.combine(Environment.GetFolderPath(environment.SpecialFolder.UserProfile),in_config(&quot;MapingFile_path&quot;).ToString,&quot;Mapare Mailuri.xlsx&quot;)]" />
-    <ui:LogMessage DisplayName="Log Message to inform end of workflow" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Read_OutputReportAndMaping workflow has ended&quot;]" />
+    <ui:LogMessage DisplayName="Log Message to inform start of workflow" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Update_OutputReport workflow has started&quot;]" />
+    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{in_transactionItem.SpecificContent(&quot;Nume&quot;), in_transactionItem.SpecificContent(&quot;Animal&quot;), in_Config(&quot;LogMessage_Success&quot;)}]" DataTable="[io_dt_OutputReport]" DisplayName="Add Transaction Item details and status to OutputReport data table" sap:VirtualizedContainerService.HintSize="334,190" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+    <ui:LogMessage DisplayName="Log Message to inform start of workflow" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Update_OutputReport workflow has started&quot;]" />
   </Sequence>
 </Activity>

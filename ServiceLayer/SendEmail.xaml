@@ -1,14 +1,18 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="SendEmail" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="SendEmail" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_emailAddress" Type="InArgument(x:String)" />
     <x:Property Name="in_config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_transactionItem" Type="InArgument(ui:QueueItem)" />
-    <x:Property Name="in_pathAnimal" Type="InArgument(x:String)" />
+    <x:Property Name="in_emailSubject" Type="InArgument(x:String)" />
+    <x:Property Name="in_pathAttachment" Type="InArgument(x:String)" />
   </x:Members>
+  <this:SendEmail.in_emailSubject>
+    <InArgument x:TypeArguments="x:String" />
+  </this:SendEmail.in_emailSubject>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>390,149.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1206,817.333333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SendEmail_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="29">
@@ -44,7 +48,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="34">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="33">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -74,14 +78,13 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>NPOI</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflow to send email, to the email address that we selected from mapings file, with animal image attached." DisplayName="SendEmail" sap:VirtualizedContainerService.HintSize="376,563.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Workflow to send email, to the email address that we selected from mapings file, with animal image attached." DisplayName="Send Email to specified recipients" sap:VirtualizedContainerService.HintSize="376,563.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -89,12 +92,10 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message to inform start of workflow" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;SendEmail workflow has started&quot;]" />
-    <ui:SendOutlookMail Account="{x:Null}" Bcc="{x:Null}" Body="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Send mail to specified email" sap:VirtualizedContainerService.HintSize="334,156.666666666667" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" Importance="Normal" IsBodyHtml="False" IsDraft="False" Sensitivity="Normal" Subject="[in_config(&quot;Subject&quot;).ToString]" To="[in_emailAddress]">
+    <ui:SendOutlookMail Account="{x:Null}" Bcc="{x:Null}" Body="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Send mail to specified email" sap:VirtualizedContainerService.HintSize="334,156.666666666667" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" Importance="Normal" IsBodyHtml="False" IsDraft="False" Sensitivity="Normal" Subject="[in_emailSubject]" To="[in_emailAddress]">
       <ui:SendOutlookMail.Files>
         <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
-          <InArgument x:TypeArguments="x:String">
-            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_pathAnimal" />
-          </InArgument>
+          <InArgument x:TypeArguments="x:String">[in_pathAttachment]</InArgument>
         </scg:List>
       </ui:SendOutlookMail.Files>
     </ui:SendOutlookMail>

@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="SetTransactionStatus" this:SetTransactionStatus.in_TransactionItem="[Nothing]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="SetTransactionStatus" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Exception variable that is used during transitions between states and represents a situation that does not conform to the rules of the process being automated." Name="in_BusinessException" Type="InArgument(ui:BusinessRuleException)" />
     <x:Property sap2010:Annotation.AnnotationText="Optionally used to include additional information about the transaction item." Name="in_TransactionField1" Type="InArgument(x:String)" />
@@ -12,6 +12,7 @@
     <x:Property sap2010:Annotation.AnnotationText="Used to control the number of consecutive system exceptions." Name="io_ConsecutiveSystemExceptions" Type="InOutArgument(x:Int32)" />
     <x:Property Name="in_pathAnimal" Type="InArgument(x:String)" />
     <x:Property Name="in_emailAddress" Type="InArgument(x:String)" />
+    <x:Property Name="io_dt_outputReport" Type="InOutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -19,7 +20,7 @@
   <sap:VirtualizedContainerService.HintSize>1206,1425.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>SetTransactionStatus_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="26">
+    <scg:List x:TypeArguments="x:String" Capacity="52">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -46,6 +47,8 @@
       <x:String>System.Reflection</x:String>
       <x:String>System.Runtime.InteropServices</x:String>
       <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -77,6 +80,7 @@
       <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Data.Entity</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
@@ -213,7 +217,10 @@
                 <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_transactionItem">
                   <mva:VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="in_TransactionItem" />
                 </InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_pathAnimal">
+                <InArgument x:TypeArguments="x:String" x:Key="in_emailSubject">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;Subject&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_pathAttachment">
                   <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_pathAnimal" />
                 </InArgument>
               </ui:InvokeWorkflowFile.Arguments>
@@ -234,6 +241,13 @@
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Update_OutputReport workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="DataLayer\Update_OutputReport.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_transactionItem">[in_TransactionItem]</InArgument>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                    <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_OutputReport">[io_dt_outputReport]</InOutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
               </Sequence>
               <FlowStep.Next>
                 <FlowStep x:Name="__ReferenceID5">

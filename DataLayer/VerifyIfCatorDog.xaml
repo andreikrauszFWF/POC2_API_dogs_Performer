@@ -67,13 +67,13 @@
       <AssemblyReference>NPOI</AssemblyReference>
       <AssemblyReference>System.Collections.Immutable</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="VerifyIfCatOrDog" sap:VirtualizedContainerService.HintSize="756,639.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Workflow to check if the Animal value from the trandsaction item is Dog or Cat, and given the result, invoke the workflow for the respective animal." DisplayName="Verify If Transaction Iteam Animal is Cat Or Dog" sap:VirtualizedContainerService.HintSize="756,684.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message to inform start of workflow" sap:VirtualizedContainerService.HintSize="714,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;VerifyIfCatOrDog workflow has started&quot;]" />
@@ -81,24 +81,16 @@
       <If.Then>
         <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke DownloadDog workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="ServiceLayer\DownloadDog.xaml">
           <ui:InvokeWorkflowFile.Arguments>
-            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">
-              <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_config" />
-            </InArgument>
-            <OutArgument x:TypeArguments="x:String" x:Key="out_pathDog">
-              <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="out_pathAnimal" />
-            </OutArgument>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">[in_config]</InArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_pathDog">[out_pathAnimal]</OutArgument>
           </ui:InvokeWorkflowFile.Arguments>
         </ui:InvokeWorkflowFile>
       </If.Then>
       <If.Else>
         <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke DownloadCat workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="ServiceLayer\DownloadCat.xaml">
           <ui:InvokeWorkflowFile.Arguments>
-            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">
-              <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_config" />
-            </InArgument>
-            <OutArgument x:TypeArguments="x:String" x:Key="out_pathCat">
-              <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="out_pathAnimal" />
-            </OutArgument>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">[in_config]</InArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_pathCat">[out_pathAnimal]</OutArgument>
           </ui:InvokeWorkflowFile.Arguments>
         </ui:InvokeWorkflowFile>
       </If.Else>

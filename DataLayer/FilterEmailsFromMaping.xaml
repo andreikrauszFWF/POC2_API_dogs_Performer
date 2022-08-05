@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1274.66666666667,817.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1206,817.333333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>FilterEmails_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -69,28 +69,28 @@
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>NPOI</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="FilterEmailsFromMaping" sap:VirtualizedContainerService.HintSize="526,344.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Filter emails from maping file and exctract the email matching the name from transaction item." DisplayName="Filter emails from maping  and exctract email" sap:VirtualizedContainerService.HintSize="550,348.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <If Condition="[in_dt_mailMapings.AsEnumerable().Where(Function(r) r(&quot;Nume Prenume&quot;).ToString.Contains(in_transactionItem.SpecificContent(&quot;Name&quot;).ToString)).ToList.Count = 1]" DisplayName="If name from queue item is found in maping file" sap:VirtualizedContainerService.HintSize="508,223.333333333333" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[in_dt_mailMapings.AsEnumerable().Where(Function(r) r(&quot;Nume Prenume&quot;).ToString.Contains(in_transactionItem.SpecificContent(&quot;Nume&quot;).ToString)).ToList.Count = 1]" DisplayName="If name from queue item is found in maping file" sap:VirtualizedContainerService.HintSize="508,226" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <Assign DisplayName="Save the email address inside a new variable" sap:VirtualizedContainerService.HintSize="262,61.3333333333333" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign DisplayName="Save the email address inside a new variable" sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_1">
           <Assign.To>
             <OutArgument x:TypeArguments="x:String">[out_emailAddress]</OutArgument>
           </Assign.To>
           <Assign.Value>
-            <InArgument x:TypeArguments="x:String">[in_dt_mailMapings.AsEnumerable().Where(Function(r) r("Nume Prenume").ToString.Contains(in_transactionItem.SpecificContent("Name").ToString)).ToList(0)("Email Adress").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String">[in_dt_mailMapings.AsEnumerable().Where(Function(r) r("Nume Prenume").ToString.Contains(in_transactionItem.SpecificContent("Nume").ToString)).ToList(0)("Email Adress").ToString]</InArgument>
           </Assign.Value>
         </Assign>
       </If.Then>
       <If.Else>
-        <Throw Exception="[new BusinessRuleException(&quot;Person not found in list&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        <Throw DisplayName="Throw BRE: Incorect animal" Exception="[new BusinessRuleException(&quot;Person not found in list&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
       </If.Else>
     </If>
   </Sequence>

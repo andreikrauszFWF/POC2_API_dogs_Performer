@@ -4,7 +4,7 @@
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="out_pathAnimal" Type="OutArgument(x:String)" />
     <x:Property Name="in_dt_mailMaping" Type="InArgument(sd:DataTable)" />
-    <x:Property Name="out_emailAddress" Type="InArgument(x:String)" />
+    <x:Property Name="out_emailAddress" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -90,22 +90,22 @@
     <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke VerifyIfCatorDog workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="DataLayer\VerifyIfCatorDog.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_transactionItem">
-          <mva:VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="in_TransactionItem" />
-        </InArgument>
-        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">
-          <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
-        </InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_pathAnimal">
-          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="out_pathAnimal" />
-        </OutArgument>
+        <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_transactionItem">[in_TransactionItem]</InArgument>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">[in_Config]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_pathAnimal">[out_pathAnimal]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke FilterEmailsFromMaping workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="DataLayer\FilterEmailsFromMaping.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_mailMapings">[in_dt_mailMaping]</InArgument>
-        <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_transactionItem">[in_TransactionItem]</InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="out_emailAddress">[out_emailAddress]</OutArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dt_mailMapings">
+          <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="in_dt_mailMaping" />
+        </InArgument>
+        <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_transactionItem">
+          <mva:VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="in_TransactionItem" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_emailAddress">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="out_emailAddress" />
+        </OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="334,55.3333333333333" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />

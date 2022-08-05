@@ -9,7 +9,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1206,817.333333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1206,829.333333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>DownloadDog_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="34">
@@ -82,7 +82,7 @@
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="DownloadDog" sap:VirtualizedContainerService.HintSize="376,719.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Workflow to send a get request and downlaod the returned content (Cat image) to specified path." DisplayName="Download Dog image" sap:VirtualizedContainerService.HintSize="376,764.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="downloadDogURL" />
       <Variable x:TypeArguments="njl:JObject" Name="downloadDogJSON" />
@@ -90,10 +90,11 @@
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message to inform start of workflow" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;DownloadDog workflow has started&quot;]" />
-    <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" FileAttachments="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" ResourcePath="{x:Null}" ResponseAttachment="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" StatusCode="{x:Null}" AcceptFormat="ANY" AuthenticationType="None" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="Send Get Request to download JSON" EnableSSLVerification="True" EndPoint="[in_config(&quot;dogDownloadURL&quot;).ToString]" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Password="[Nothing]" Result="[downloadDogURL]" TimeoutMS="6000" Username="[Nothing]">
+    <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" FileAttachments="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" ResourcePath="{x:Null}" ResponseAttachment="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" StatusCode="{x:Null}" AcceptFormat="ANY" AuthenticationType="None" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="Send Get Request to download JSON from Dog API" EnableSSLVerification="True" EndPoint="[in_config(&quot;dogDownloadURL&quot;).ToString]" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Password="[Nothing]" Result="[downloadDogURL]" TimeoutMS="6000" Username="[Nothing]">
       <ui:HttpClient.Attachments>
         <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
       </ui:HttpClient.Attachments>
@@ -110,8 +111,8 @@
         <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
       </ui:HttpClient.UrlSegments>
     </ui:HttpClient>
-    <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON file" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[downloadDogJSON]" JsonString="[downloadDogURL]" />
-    <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize the &quot;Dog&quot; JSON file" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[downloadDogJSON]" JsonString="[downloadDogURL]" />
+    <Assign DisplayName="Assign the download path to a variable" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[out_pathDog]</OutArgument>
       </Assign.To>
